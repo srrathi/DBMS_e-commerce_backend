@@ -42,7 +42,7 @@ dotenv.config();
 
 mysqlConnection.connect((err) => {
   if (!err) console.log("MYSQL database connected successfully!");
-  else console.log("Connection failed");
+  else console.log("Connection failed", err);
 });
 
 app.listen(PORT, () => {
