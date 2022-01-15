@@ -43,9 +43,15 @@ app.get("/", (req, res) => {
 
 dotenv.config();
 
-mysqlConnection.connect((err) => {
-  if (!err) console.log("MYSQL database connected successfully!");
-  else console.log("Connection failed", err);
+// mysqlConnection.connect((err) => {
+//   if (!err) console.log("MYSQL database connected successfully!");
+//   else console.log("Connection failed", err);
+// });
+
+mysqlConnection.getConnection((err, connection) => {
+  if (err) throw err;
+  console.log("MySQL Database connected successfully");
+  connection.release();
 });
 
 app.listen(PORT, () => {
