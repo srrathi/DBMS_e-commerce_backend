@@ -38,8 +38,7 @@ router.get("/transc-all/:customerId", (req, res) => {
 });
 
 router.post("/transc-add", async (req, res) => {
-  const { transactionProductsArray } = req.body;
-
+  const { transactionProductsArray, cartCustomerId } = req.body;
 
   if (transactionProductsArray && transactionProductsArray.length) {
     await transactionProductsArray.forEach(async (transcProduct) => {
@@ -110,6 +109,25 @@ router.post("/transc-add", async (req, res) => {
         });
       } else if (result && result.affectedRows) {
         console.log(result);
+        const clearRecordCartTableQuery = `DELETE FROM cart_table WHERE cart_customer_id = ?;`;
+        mysqlConnection.query(
+          clearRecordCartTableQuery,
+          [cartCustomerId],
+          (error, result) => {
+            if (error) {
+              console.log(error);
+              return res.status(400).json({
+                success: false,
+                error: error,
+              });
+            } else if (result && result.affectedRows) {
+              console.log(result);
+              console.log({
+                message: "Product Cleared from Cart Successfully",
+              });
+            }
+          }
+        );
         return res.status(200).json({
           success: true,
           message: "Order Placed Successfully for all Product",

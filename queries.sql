@@ -94,3 +94,27 @@ CREATE
         cart_product_id = NEW.transc_product_id;
 	END $$
 DELIMITER ;
+
+
+-- DELETE TRIGGER CODE
+
+-- DELIMITER $$
+-- CREATE 
+-- 	TRIGGER customer_product_purchased AFTER INSERT 
+--     ON transaction_table
+--     FOR EACH ROW 
+--     BEGIN
+-- 		DELETE FROM cart_table
+-- 		WHERE cart_customer_id = NEW.transc_customer_id AND 
+--         cart_product_id = NEW.transc_product_id;
+-- 	END $$
+-- DELIMITER ;
+
+
+-- TO DELETE THE TRIGGER FROM TABLE
+
+-- DELIMITER $$
+
+-- USE `e-commerce`$$
+-- DROP TRIGGER IF EXISTS `e-commerce`.`customer_product_purchased` $$
+-- DELIMITER ;
