@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 5500;
 const dotenv = require("dotenv");
 const fileUpload = require("express-fileupload");
 
-
 const options = {
   dotfiles: "ignore",
   etag: true,
@@ -37,6 +36,10 @@ app.use("/api/customer", customer);
 app.use("/api/seller", seller);
 app.use("/api/product", product);
 app.use("/api/transc", transc);
+
+app.get("/", (req, res) => {
+  res.status(200).send("<h2>Welcome to The Backend of DBMS Ecommerce</h2>");
+});
 
 dotenv.config();
 
